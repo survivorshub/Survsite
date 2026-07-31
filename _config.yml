@@ -1,0 +1,33 @@
+title: "BitÃ¡cora Tech"
+description: "Un blog colectivo de amigos apasionados por la tecnologÃ­a: desarrollo, IA, seguridad, gaming, hardware y mÃ¡s."
+baseurl: ""
+url: "https://tu-usuario.github.io"
+
+# Autores del blog (edita con los datos de tus amigos)
+authors:
+  juanjo:
+    name: "Juanjo Morales"
+    bio: "Ingeniero de sistemas"
+  mauro:
+    name: "Mauro Fernández"
+    bio: "Arquitecto Devops"
+  mario:
+    name: "Mario Parra"
+    bio: "Ciberseguridad"
+
+# Tema y plugins
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+paginate: 6
+paginate_path: "/page:num/"
+
+# MenÃº de navegaciÃ³n
+header_pages:
+  - about.md
+
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
