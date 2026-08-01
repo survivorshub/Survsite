@@ -1,24 +1,24 @@
-# Bitacora Tech
+# 📝 Bitácora Tech
 
-Bitacora Tech es un blog colectivo de tecnologia construido con [Jekyll](https://jekyllrb.com/) y preparado para publicarse en [GitHub Pages](https://pages.github.com/). El sitio reune publicaciones de varias personas con intereses distintos dentro del mundo tech, como desarrollo web, IA, ciberseguridad, hardware y gaming.
+> Blog colectivo de tecnología construido con Jekyll y preparado para publicarse en GitHub Pages.
 
-Este repositorio contiene la configuracion del sitio, la pagina de inicio, la pagina de presentacion del equipo y la estructura necesaria para agregar nuevos articulos de blog.
+Bitácora Tech reúne publicaciones de varias personas con intereses distintos dentro del mundo tech: desarrollo web, IA, ciberseguridad, hardware, gaming y más. Este repositorio contiene la configuración del sitio, la página de inicio, la presentación del equipo y la estructura necesaria para publicar nuevos artículos de forma sencilla.
 
-## Objetivo del proyecto
+## 🎯 Objetivo del proyecto
 
-El objetivo es tener un espacio simple, mantenible y facil de publicar para compartir contenido tecnico en formato de blog. La idea del proyecto es que cada autor publique articulos desde su area de experiencia, manteniendo una base comun de navegacion, estilo y despliegue.
+El objetivo es crear un espacio simple, mantenible y fácil de publicar para compartir contenido técnico en formato de blog. La idea es que cada autor aporte desde su área de experiencia, manteniendo una base común de navegación, estilo y despliegue.
 
-## Caracteristicas principales
+## ✨ Características principales
 
-- Sitio estatico generado con Jekyll.
-- Tema base `minima`.
-- Soporte para feeds RSS con `jekyll-feed`.
-- Metadatos SEO con `jekyll-seo-tag`.
-- Paginacion de entradas con `jekyll-paginate`.
-- Configuracion de autores en `_config.yml`.
-- Estructura pensada para GitHub Pages.
+- 🌐 Sitio estático generado con Jekyll.
+- 🎨 Tema base `minima`.
+- 📡 Soporte para feeds RSS con `jekyll-feed`.
+- 🔎 Metadatos SEO con `jekyll-seo-tag`.
+- 📚 Paginación de entradas con `jekyll-paginate`.
+- 👤 Configuración de autores en `_config.yml`.
+- 🚀 Preparado para GitHub Pages.
 
-## Estructura del repositorio
+## 📁 Estructura del repositorio
 
 ```text
 Survsite/
@@ -31,26 +31,26 @@ Survsite/
     └── index.md
 ```
 
-### Archivos clave
+### 📌 Archivos clave
 
-- `_config.yml`: configuracion principal del sitio, autores, tema, plugins, paginacion y rutas.
-- `blog-tech/index.md`: pagina de inicio del blog.
-- `blog-tech/about.md`: pagina de presentacion del proyecto y del equipo.
+- `_config.yml`: configuración principal del sitio, autores, tema, plugins, paginación y rutas.
+- `blog-tech/index.md`: página de inicio del blog.
+- `blog-tech/about.md`: página de presentación del proyecto y del equipo.
 - `blog-tech/Gemfile`: dependencias Ruby/Jekyll necesarias para ejecutar el sitio en local.
 
-## Requisitos
+## 🛠️ Requisitos
 
-Para ejecutar el proyecto en tu maquina necesitas:
+Para ejecutar el proyecto en tu máquina necesitas:
 
 - Ruby instalado.
 - Bundler instalado.
-- Git, si vas a clonar o publicar cambios.
+- Git si vas a clonar, colaborar o publicar cambios.
 
-Si vas a trabajar localmente con Jekyll, tambien es recomendable tener instaladas las herramientas de compilacion basicas que exija tu sistema operativo para compilar gemas nativas.
+Si vas a trabajar localmente con Jekyll, también es recomendable tener instaladas las herramientas de compilación básicas que exija tu sistema operativo para compilar gemas nativas.
 
-## Instalacion local
+## ▶️ Instalación local
 
-La forma mas simple de probar el blog en local es desde la carpeta `blog-tech/`.
+La forma más simple de probar el blog en local es desde la carpeta `blog-tech/`.
 
 ```bash
 cd blog-tech
@@ -58,45 +58,92 @@ bundle install
 bundle exec jekyll serve
 ```
 
-Luego abre en el navegador:
+Luego abre el navegador en:
 
 ```text
 http://localhost:4000
 ```
 
-### Que hace cada comando
+### 🔍 Qué hace cada comando
 
 - `bundle install`: instala las gemas definidas en el `Gemfile`.
 - `bundle exec jekyll serve`: levanta un servidor local y recompila el sitio cuando detecta cambios.
 
-## Publicacion en GitHub Pages
+## 🌐 Publicación en GitHub Pages
 
-Este proyecto esta pensado para publicarse como un sitio estatico en GitHub Pages.
+Este proyecto está pensado para publicarse como un sitio estático en GitHub Pages.
 
-### Flujo recomendado
+### ✅ Flujo recomendado
 
 1. Crea un repositorio en GitHub para el sitio.
 2. Sube el contenido del proyecto a la rama principal.
-3. En GitHub, abre la seccion **Settings > Pages**.
-4. Selecciona la rama y la carpeta que correspondan a la publicacion del sitio.
-5. Espera la compilacion y revisa la URL generada por GitHub Pages.
+3. En GitHub, abre la sección Settings > Pages.
+4. Selecciona la rama y la carpeta que correspondan a la publicación del sitio.
+5. Espera la compilación y revisa la URL generada.
 
-### Configuracion importante
+### ⚠️ Configuración importante
 
-En `_config.yml` hay dos valores que normalmente debes revisar antes de publicar:
+En `_config.yml` conviene revisar estos valores antes de publicar:
 
 - `url`: la URL final del sitio.
 - `baseurl`: el subdirectorio del sitio, si aplica.
 
-Si el blog se publica como repositorio de usuario en GitHub Pages, normalmente `baseurl` queda vacio. Si se publica como proyecto dentro de otro dominio o subruta, puede requerir un valor distinto.
+Si el blog se publica como repositorio de usuario en GitHub Pages, normalmente `baseurl` queda vacío. Si se publica como proyecto dentro de otro dominio o subruta, puede requerir un valor distinto.
 
-## Configuracion del sitio
+## 🤝 Cómo trabajaremos colaborativamente
 
-El archivo `_config.yml` centraliza la mayor parte de la configuracion global.
+Para mantener el proyecto ordenado, simple y fácil de revisar, usaremos un enfoque basado en Trunk-Based Development.
 
-### Autores
+### 🧭 Idea central
 
-Los autores se definen dentro de `authors:`. Cada autor tiene una clave unica y metadatos basicos como nombre y biografia.
+- La rama `main` es la fuente de verdad.
+- Todos los cambios entran a `main` de forma frecuente.
+- Las ramas de trabajo son cortas y de vida breve.
+- Los cambios pequeños son más fáciles de revisar, probar y desplegar.
+
+### ✅ Reglas de trabajo
+
+1. Siempre partir desde `main`.
+2. Crear ramas cortas y descriptivas, por ejemplo:
+   - `feat/nuevo-post`
+   - `fix/ajuste-nav`
+   - `docs/mejora-readme`
+3. Hacer cambios pequeños y enfocados.
+4. Subir la rama con frecuencia.
+5. Abrir un Pull Request para revisar antes de mezclar.
+6. No mezclar cambios incompletos ni sin probar.
+
+### 💻 Flujo recomendado
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feat/nombre-del-cambio
+
+# trabajar en los cambios
+
+git add .
+git commit -m "feat: describe el cambio"
+git push -u origin feat/nombre-del-cambio
+```
+
+Luego abrir un Pull Request en GitHub y esperar revisión.
+
+### 📝 Buenas prácticas
+
+- Usa mensajes de commit claros y cortos.
+- Mantén los PR pequeños.
+- Evita trabajar directamente sobre `main`.
+- Prueba el sitio localmente antes de pedir merge.
+- Si algo no está listo, no lo mezcles.
+
+## ⚙️ Configuración del sitio
+
+El archivo `_config.yml` centraliza la mayor parte de la configuración global.
+
+### 👤 Autores
+
+Los autores se definen dentro de `authors:`. Cada autor tiene una clave única y metadatos básicos como nombre y biografía.
 
 Ejemplo de estructura:
 
@@ -107,7 +154,7 @@ authors:
     bio: "Ingeniero de sistemas"
 ```
 
-### Tema y plugins
+### 🎨 Tema y plugins
 
 El blog usa:
 
@@ -116,18 +163,18 @@ El blog usa:
 - `jekyll-seo-tag`
 - `jekyll-paginate`
 
-### Navegacion
+### 🧭 Navegación
 
-La navegacion principal se define en `header_pages:`. Actualmente apunta a `about.md`.
+La navegación principal se define en `header_pages:`. Actualmente apunta a `about.md`.
 
-### Paginacion
+### 📄 Paginación
 
-La pagina de inicio muestra las entradas paginadas con:
+La página de inicio muestra las entradas paginadas con:
 
 - `paginate: 6`
 - `paginate_path: "/page:num/"`
 
-## Como crear una nueva entrada
+## ✍️ Cómo crear una nueva entrada
 
 Cada post debe guardarse en la carpeta `_posts/` con un nombre que siga este formato:
 
@@ -135,14 +182,14 @@ Cada post debe guardarse en la carpeta `_posts/` con un nombre que siga este for
 AAAA-MM-DD-titulo-del-post.md
 ```
 
-### Front matter minimo
+### 🧩 Front matter mínimo
 
 Cada entrada debe comenzar con un bloque YAML como este:
 
 ```yaml
 ---
 layout: post
-title: "Titulo del articulo"
+title: "Título del artículo"
 date: 2026-08-01 10:00:00 -0400
 author: juanjo
 categories: [desarrollo]
@@ -150,72 +197,72 @@ tags: [jekyll, github-pages]
 ---
 ```
 
-### Reglas recomendadas para los posts
+### 📏 Reglas recomendadas para los posts
 
 - El valor de `author` debe coincidir con una clave existente en `_config.yml`.
 - Usa `categories` para agrupar temas generales.
-- Usa `tags` para etiquetas mas especificas.
+- Usa `tags` para etiquetas más específicas.
 - Escribe el contenido en Markdown debajo del front matter.
 
-### Ejemplo de post
+### 📝 Ejemplo de post
 
 ```markdown
 ---
 layout: post
-title: "Primer articulo"
+title: "Primer artículo"
 date: 2026-08-01 10:00:00 -0400
 author: mauro
 categories: [devops]
 tags: [jekyll, blog, github-pages]
 ---
 
-En este articulo explicamos como publicar un blog tecnico con Jekyll.
+En este artículo explicamos cómo publicar un blog técnico con Jekyll.
 ```
 
-## Como agregar un nuevo autor
+## 👤 Cómo agregar un nuevo autor
 
 1. Abre `_config.yml`.
 2. Agrega una nueva entrada dentro de `authors:`.
 3. Usa una clave corta y estable, por ejemplo `ana`, `pedro` o `sofia`.
 4. Completa `name` y `bio`.
-5. Si quieres mostrarlo en la pagina de presentacion, actualiza tambien `blog-tech/about.md`.
+5. Si quieres mostrarlo en la página de presentación, actualiza también `blog-tech/about.md`.
 
-## Personalizacion visual
+## 🎨 Personalización visual
 
-El sitio usa el tema `minima`, asi que la personalizacion puede hacerse de varias formas:
+El sitio usa el tema `minima`, así que la personalización puede hacerse de varias formas:
 
 - Sobrescribiendo estilos con archivos propios.
 - Creando parciales o ajustes de tema si el proyecto crece.
-- Cambiando contenido, orden de paginas o metadatos desde `_config.yml`.
+- Cambiando contenido, orden de páginas o metadatos desde `_config.yml`.
 
-Si el blog necesita una identidad visual mas marcada, se puede migrar a un tema mas completo o extender la apariencia actual con CSS personalizado.
+Si el blog necesita una identidad visual más marcada, se puede migrar a un tema más completo o extender la apariencia actual con CSS personalizado.
 
-## Contenido incluido hoy
+## 🧱 Contenido incluido hoy
 
-### Pagina de inicio
+### 🏠 Página de inicio
 
-La pagina principal da la bienvenida y presenta el enfoque del blog como un espacio colectivo de tecnologia.
+La página principal da la bienvenida y presenta el enfoque del blog como un espacio colectivo de tecnología.
 
-### Pagina Acerca de
+### ℹ️ Página Acerca de
 
-La pagina `about.md` resume la historia del proyecto y presenta a los autores con una descripcion breve de sus areas.
+La página `about.md` resume la historia del proyecto y presenta a los autores con una descripción breve de sus áreas.
 
-## Mantenimiento recomendado
+## 🔧 Mantenimiento recomendado
 
-Para que el proyecto se mantenga ordenado a medida que crece, conviene seguir estas practicas:
+Para que el proyecto se mantenga ordenado a medida que crece, conviene seguir estas prácticas:
 
 - Mantener coherencia en el nombre de los archivos de post.
 - Revisar que cada nuevo autor exista en `_config.yml` antes de usarlo en un post.
 - Probar el sitio en local antes de publicar.
 - Verificar `url` y `baseurl` antes de desplegar.
-- Revisar enlaces internos despues de cambios en paginas o rutas.
+- Revisar enlaces internos después de cambios en páginas o rutas.
 
-## Licencia
+## 📜 Licencia
 
-Si el proyecto va a publicarse de forma abierta, agrega una licencia explicita en el repositorio para dejar claro como se puede reutilizar el contenido y el codigo.
+Si el proyecto va a publicarse de forma abierta, conviene agregar una licencia explícita en el repositorio para dejar claro cómo se puede reutilizar el contenido y el código.
 
-## Proximos pasos sugeridos
+## 🚀 Próximos pasos sugeridos
 
-- Crear la carpeta `_posts/` si todavia no existe y empezar a publicar articulos.
+- Crear la carpeta `_posts/` si todavía no existe y empezar a publicar artículos.
 - Añadir estilos personalizados para darle una identidad propia al blog.
-- Completar la informacion real de autores, repositorio y URL final antes de publicar.
+- Completar la información real de autores, repositorio y URL final antes de publicar.
