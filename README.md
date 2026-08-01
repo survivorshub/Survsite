@@ -16,6 +16,7 @@ Bitácora Tech reúne publicaciones de varias personas con intereses distintos d
 - [Workflow de GitHub Actions](#-workflow-de-github-actions)
 - [Lecciones aprendidas](#-lecciones-aprendidas)
 - [Buenas prácticas](#-buenas-prácticas-para-mantener-el-proyecto)
+- [Prompts útiles](#-prompts-útiles)
 
 ## 🎯 Objetivo del proyecto
 
@@ -483,6 +484,13 @@ npx cspell --config ../.cspell.json --no-progress --words-only --locale es "_pos
 - no trabajar directamente sobre `main`;
 - revisar ortografía y enlaces antes de publicar;
 - usar PRs para cualquier cambio que afecte al despliegue o la publicación.
+
+## 🧰 Prompts útiles
+
+Puedes encontrar prompts reutilizables en la carpeta [prompts](prompts/):
+
+- [Prompt para llevar un cambio a main vía PR](prompts/merge-via-pr.md)
+- [Librería de prompts útiles](prompts/library/README.md)
 
 ## 🚀 Próximos pasos sugeridos
 
