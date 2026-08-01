@@ -15,7 +15,7 @@ jobs:
         run: |
           COMMIT_MSG="$(git log -1 --pretty=%B)"
           echo "Último mensaje de commit: $COMMIT_MSG"
-          if echo "$COMMIT_MSG" | grep -Eiq '^(Merge pull request|Merge branch)'; then
+          if echo "$COMMIT_MSG" | grep -Eiq '^(Merge pull request|Merge branch)|\(#([0-9]+)\)$'; then
             echo "✅ El push a main proviene de un merge vía PR."
           else
             echo "❌ Los pushes directos a main no están permitidos. Crea una rama y fusiona mediante PR."
