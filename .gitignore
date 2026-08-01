@@ -1,0 +1,24 @@
+# Jekyll / site build output
+blog-tech/_site/
+blog-tech/.sass-cache/
+blog-tech/.jekyll-cache/
+blog-tech/.jekyll-metadata
+
+# Bundler / Ruby
+.bundle/
+vendor/bundle/
+vendor/cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Docker local data
+*.local

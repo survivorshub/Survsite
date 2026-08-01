@@ -2,7 +2,6 @@ title: "Bitácora Tech"
 description: "Un blog colectivo de amigos apasionados por la tecnología: desarrollo, IA, seguridad, gaming, hardware y más."
 baseurl: ""
 url: "https://tu-usuario.github.io"
-source: "blog-tech"
 future: true
 
 # Autores del blog (edita con los datos de tus amigos)
