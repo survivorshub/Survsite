@@ -1,0 +1,23 @@
+name: Enforce PR merges on main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  require-pr-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure main only accepts PR merge commits
+        run: |
+          COMMIT_MSG="$(git log -1 --pretty=%B)"
+          echo "Último mensaje de commit: $COMMIT_MSG"
+          if echo "$COMMIT_MSG" | grep -Eiq '^(Merge pull request|Merge branch)'; then
+            echo "✅ El push a main proviene de un merge vía PR."
+          else
+            echo "❌ Los pushes directos a main no están permitidos. Crea una rama y fusiona mediante PR."
+            exit 1
+          fi
