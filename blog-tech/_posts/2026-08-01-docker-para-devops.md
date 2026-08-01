@@ -11,7 +11,7 @@ Docker se ha convertido en una de las herramientas más útiles del ecosistema D
 
 Cuando un equipo trabaja con distintos entornos, la diferencia entre "funciona en mi máquina" y "funciona en producción" suele venir de la configuración del sistema, las dependencias y las versiones. Docker ayuda a cerrar esa brecha al empaquetar la aplicación junto con todo lo que necesita para ejecutarse.
 
-![Docker containers](https://images.unsplash.com/photo-1605745341112-85968b196b4b?auto=format&fit=crop&w=1200&q=80)
+![Docker containers]({{ "/assets/images/docker-devops.svg" | relative_url }})
 
 ## ¿Qué aporta Docker?
 

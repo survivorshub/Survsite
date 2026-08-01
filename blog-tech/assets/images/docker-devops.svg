@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Ilustración de contenedores Docker">
+  <rect width="1200" height="675" fill="#f7f9fc"/>
+  <rect x="120" y="110" width="960" height="430" rx="32" fill="#ffffff" stroke="#dce4ef" stroke-width="3"/>
+  <rect x="190" y="180" width="220" height="160" rx="20" fill="#eaf4ff" stroke="#4d7cff" stroke-width="3"/>
+  <rect x="490" y="180" width="220" height="160" rx="20" fill="#eaf4ff" stroke="#4d7cff" stroke-width="3"/>
+  <rect x="790" y="180" width="220" height="160" rx="20" fill="#eaf4ff" stroke="#4d7cff" stroke-width="3"/>
+  <rect x="260" y="210" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="260" y="245" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="560" y="210" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="560" y="245" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="860" y="210" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="860" y="245" width="80" height="20" rx="10" fill="#4d7cff"/>
+  <rect x="260" y="330" width="190" height="120" rx="20" fill="#fef5e7" stroke="#f39c12" stroke-width="3"/>
+  <rect x="500" y="330" width="190" height="120" rx="20" fill="#fef5e7" stroke="#f39c12" stroke-width="3"/>
+  <rect x="740" y="330" width="190" height="120" rx="20" fill="#fef5e7" stroke="#f39c12" stroke-width="3"/>
+  <circle cx="355" cy="390" r="30" fill="#f39c12"/>
+  <circle cx="595" cy="390" r="30" fill="#f39c12"/>
+  <circle cx="835" cy="390" r="30" fill="#f39c12"/>
+  <path d="M325 390h60" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M565 390h60" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M805 390h60" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+  <text x="600" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" fill="#1f2937">Docker y DevOps</text>
+</svg>
