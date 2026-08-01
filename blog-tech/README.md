@@ -9,6 +9,6 @@ Allí encontrarás:
 - instrucciones de instalación local,
 - uso con Docker,
 - explicación de GitHub Pages,
-- flujo de colaboración con Trunk-Based Development,
+- flujo de colaboración con ramas `main`, `develop` y `feature/*`,
 - y cómo crear posts y autores.
 

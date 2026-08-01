@@ -2,7 +2,10 @@ name: Deploy Jekyll site to GitHub Pages
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
   workflow_dispatch:
 
 permissions:
@@ -14,8 +17,72 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+
+env:
+  JEKYLL_ENV: production
+
 jobs:
+  validate:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Merge pull request')) ||
+      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Show tool versions
+        run: |
+          node --version
+          ruby --version
+          bundle --version
+
+      - name: Install cspell
+        run: npm install -g cspell@latest
+
+      - name: Check spelling in posts
+        run: cspell --config .cspell.json --no-progress "blog-tech/_posts/**/*.md"
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: blog-tech
+
+      - name: Install Jekyll dependencies
+        working-directory: blog-tech
+        run: bundle install
+
+      - name: Run Jekyll doctor
+        working-directory: blog-tech
+        run: bundle exec jekyll doctor
+
+      - name: Validate Jekyll build
+        working-directory: blog-tech
+        run: bundle exec jekyll build --trace
+
+      - name: Validation summary
+        run: |
+          echo "✅ Validación completada. El sitio está listo para desplegar."
+          test -f blog-tech/_site/index.html
+          echo "📦 Artefacto de build generado en blog-tech/_site"
+
   build:
+    needs: validate
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Merge pull request')) ||
+      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'develop')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,9 +95,12 @@ jobs:
           bundler-cache: true
           working-directory: blog-tech
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Build site with Jekyll
         working-directory: blog-tech
-        run: bundle exec jekyll build
+        run: bundle exec jekyll build --trace
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -39,6 +109,10 @@ jobs:
 
   deploy:
     needs: build
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Merge pull request')) ||
+      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'develop')
     runs-on: ubuntu-latest
     environment:
       name: github-pages

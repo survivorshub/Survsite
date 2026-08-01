@@ -114,22 +114,25 @@ GitHub Pages es el servicio de alojamiento estático de GitHub. Permite publicar
 ### ¿Cómo se usa aquí?
 
 - El contenido del blog está escrito en Markdown y Jekyll lo transforma en páginas HTML estáticas.
-- GitHub Pages puede publicar ese contenido directamente desde un repositorio.
-- El sitio se sirve desde una rama concreta y, opcionalmente, desde una carpeta concreta del repositorio.
+- GitHub Pages publica ese contenido directamente desde el repositorio.
+- En este proyecto, la publicación de producción se gestiona desde la rama `main`.
 
 ### Conceptos importantes
 
-- `main` o `master`: normalmente es la rama que GitHub Pages usa como fuente.
+- `main`: es la única fuente de verdad para producción.
+- `develop`: rama de prueba y validación previa al despliegue.
+- `feature/*`: ramas de trabajo para cambios concretos.
 - `root` o `docs/`: la carpeta desde la que se publicará el contenido.
 - Build automático: si el repositorio está configurado para Jekyll, GitHub lo compila automáticamente.
 
-### Flujo típico
+### Flujo de publicación
 
-1. Se actualiza el contenido del repositorio.
-2. Se hace push a la rama configurada.
-3. GitHub Pages detecta el cambio.
-4. Compila el sitio.
-5. El sitio queda disponible en la URL pública.
+1. Se trabaja en ramas `feature/*` creadas desde `develop`.
+2. Cuando un cambio está listo, se abre un Pull Request hacia `develop`.
+3. En `develop` se valida el contenido, se revisa el blog localmente y se comprueba que todo está en orden.
+4. Cuando la preparación es correcta, se abre un Pull Request desde `develop` hacia `main`.
+5. Solo al mergear a `main` se activa el workflow de despliegue.
+6. GitHub Pages compila el sitio y lo publica en la URL pública.
 
 ### Configuración recomendada para este proyecto
 
@@ -157,11 +160,14 @@ Este proyecto incluye un workflow de GitHub Actions para construir y publicar el
 
 ### Qué hace el workflow
 
-1. Se activa al hacer push a la rama `develop` o manualmente desde la pestaña Actions.
-2. Configura Ruby 3.2.
-3. Instala las dependencias del proyecto desde [blog-tech/Gemfile](blog-tech/Gemfile).
-4. Genera la carpeta [blog-tech/_site](blog-tech/_site) con `bundle exec jekyll build`.
-5. Publica ese resultado en GitHub Pages con `actions/deploy-pages`.
+1. Se activa al hacer push a `main` o al cerrar un Pull Request mergeado hacia `main`.
+2. Ejecuta una validación previa que incluye:
+   - revisión ortográfica con `cspell` sobre los posts,
+   - comprobación de dependencias con Bundler,
+   - ejecución de `jekyll doctor`,
+   - y una compilación completa del sitio con `jekyll build --trace`.
+3. Si la validación pasa, genera la carpeta [blog-tech/_site](blog-tech/_site).
+4. Publica ese resultado en GitHub Pages con `actions/deploy-pages`.
 
 ### Configuración en GitHub
 
@@ -172,20 +178,17 @@ Para que funcione correctamente:
 3. Asegúrate de que el workflow haya terminado correctamente en la pestaña Actions.
 4. Espera unos minutos y recarga la URL pública.
 
-### Recomendación
-
-Si quieres probar cambios en una rama de desarrollo, puedes dejar el workflow apuntando a `develop` y publicar desde ahí. Para producción, puedes cambiar el trigger a `main` cuando el sitio esté listo.
-
-## �🔄 Flujo de trabajo colaborativo
+## 🔄 Flujo de trabajo colaborativo
 
 Para trabajar de forma colaborativa en este proyecto se seguirá este flujo:
 
-1. Cada cambio se desarrollará en una rama nueva creada a partir de `develop`.
-2. Los avances se integrarán en `develop` mediante Pull Requests.
-3. Desde `develop` se subirán los cambios a `pro` también mediante Pull Requests.
-4. El trabajo en `pro` se mantendrá controlado y revisado, evitando modificaciones directas.
+1. Cada cambio se desarrolla en una rama `feature/*` creada desde `develop`.
+2. Cuando el cambio está listo, se abre un Pull Request hacia `develop`.
+3. En `develop` se prueban y revisan los cambios antes de preparar la publicación.
+4. Cuando todo está listo, se abre un Pull Request desde `develop` hacia `main`.
+5. Solo al mergear a `main` se despliega el sitio en producción.
 
-Este modelo busca mantener un flujo claro, ordenado y seguro para el desarrollo y la publicación del sitio.
+Este modelo busca mantener un flujo claro, ordenado y seguro para el desarrollo, la validación y la publicación del blog.
 
 ## ⚙️ Configuración del sitio
 
@@ -279,50 +282,52 @@ En este artículo explicamos cómo publicar un blog técnico con Jekyll.
 
 ## 🤝 Cómo trabajaremos colaborativamente
 
-Para mantener el proyecto ordenado y fácil de revisar, usaremos un enfoque basado en Trunk-Based Development.
+Para mantener el proyecto ordenado y fácil de revisar, usaremos un flujo basado en una sola fuente de verdad y ramas de trabajo temporales.
 
 ### 🧭 Idea central
 
-- La rama `main` es la fuente de verdad.
-- Todos los cambios entran a `main` de forma frecuente.
-- Las ramas de trabajo son cortas y de vida breve.
-- Los cambios pequeños son más fáciles de revisar, probar y desplegar.
+- La rama `main` es la única fuente de verdad para producción.
+- La rama `develop` sirve para probar el blog en local y validar el contenido antes de ir a producción.
+- Las ramas `feature/*` se crean desde `develop` para trabajar cambios concretos.
+- Los cambios se revisan mediante Pull Requests y solo se integran cuando están listos.
 
 ### ✅ Reglas de trabajo
 
-1. Siempre partir desde `main`.
+1. Siempre partir desde `develop` para crear una rama `feature/*`.
 2. Crear ramas cortas y descriptivas, por ejemplo:
-   - `feat/nuevo-post`
-   - `fix/ajuste-nav`
-   - `docs/mejora-readme`
+   - `feature/nuevo-post`
+   - `feature/ajuste-nav`
+   - `feature/mejora-readme`
 3. Hacer cambios pequeños y enfocados.
 4. Subir la rama con frecuencia.
-5. Abrir un Pull Request para revisar antes de mezclar.
-6. No mezclar cambios incompletos ni sin probar.
+5. Abrir un Pull Request hacia `develop` para revisar y probar.
+6. Cuando todo esté validado, abrir un Pull Request desde `develop` hacia `main`.
+7. No mezclar cambios incompletos ni sin probar.
 
 ### 💻 Flujo recomendado
 
 ```bash
-git checkout main
-git pull origin main
-git checkout -b feat/nombre-del-cambio
+git checkout develop
+git pull origin develop
+git checkout -b feature/nombre-del-cambio
 
 # trabajar en los cambios
 
 git add .
 git commit -m "feat: describe el cambio"
-git push -u origin feat/nombre-del-cambio
+git push -u origin feature/nombre-del-cambio
 ```
 
-Luego abrir un Pull Request en GitHub y esperar revisión.
+Luego abrir un Pull Request hacia `develop`. Cuando el cambio esté listo para producción, abrir otro Pull Request desde `develop` hacia `main`.
 
 ### 📝 Buenas prácticas
 
 - Usa mensajes de commit claros y cortos.
-- Mantén los PR pequeños.
-- Evita trabajar directamente sobre `main`.
-- Prueba el sitio localmente antes de pedir merge.
+- Mantén los PR pequeños y con contexto.
+- Evita trabajar directamente sobre `main` o `develop`.
+- Prueba el sitio localmente antes de pedir merge a `develop`.
 - Si algo no está listo, no lo mezcles.
+- Recuerda que el despliegue en producción solo ocurre cuando el merge llega a `main`.
 
 ## 🎨 Personalización visual
 
