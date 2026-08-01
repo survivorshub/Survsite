@@ -26,9 +26,10 @@ plugins:
 paginate: 6
 paginate_path: "/page:num/"
 
-# MenÃº de navegaciÃ³n
+# Menú de navegación
 header_pages:
   - about.md
+  - posts.md
 
 markdown: kramdown
 permalink: /:categories/:year/:month/:day/:title/
