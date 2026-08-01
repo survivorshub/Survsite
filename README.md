@@ -29,6 +29,7 @@ El objetivo es crear un espacio simple, mantenible y fácil de publicar para com
 - 🐳 Un entorno reproducible con Docker y Docker Compose.
 - 🚀 Un flujo de despliegue automático a GitHub Pages mediante GitHub Actions.
 - ✅ Validaciones automáticas de contenido, dependencias y compilación.
+- 🔁 El despliegue se ejecuta tras un PR fusionado en main para evitar publicaciones accidentales.
 
 ## 📁 Estructura del repositorio
 
