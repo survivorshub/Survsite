@@ -331,13 +331,13 @@ Si quieres añadir una entrada nueva al blog, sigue este proceso:
 
 ```bash
 cd /ruta/al/proyecto/Survsite
-git checkout develop
-git pull origin develop
+git checkout main
+git pull origin main
 git checkout -b feature/nuevo-post
 cp blog-tech/_posts/2026-08-01-bienvenida-bitacora-tech.md blog-tech/_posts/2026-08-02-mi-nuevo-post.md
 ```
 
-Luego editas el archivo nuevo con el contenido deseado y sigues el flujo habitual.
+Luego editas el archivo nuevo con el contenido deseado y sigues el flujo habitual: commit, push, PR hacia main y merge una vez validado.
 
 ### Plantilla de front matter recomendada
 
