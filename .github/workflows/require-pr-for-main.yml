@@ -1,8 +1,7 @@
 name: Enforce PR merges on main
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   require-pr-merge:
