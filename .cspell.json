@@ -1,6 +1,9 @@
 {
   "version": "0.2",
-  "language": "en,es",
+  "language": "es",
+  "useGitignore": true,
+  "enableGlobDot": true,
+  "allowCompoundWords": true,
   "ignorePaths": [
     "blog-tech/_site/**",
     "blog-tech/.jekyll-cache/**",
