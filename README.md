@@ -2,7 +2,17 @@
 
 > Blog colectivo de tecnología construido con Jekyll, preparado para funcionar en local y publicarse en GitHub Pages.
 
-Bitácora Tech reúne publicaciones de varias personas con intereses distintos dentro del mundo tech: desarrollo web, IA, ciberseguridad, hardware, gaming y más. El proyecto está pensado para que sea sencillo de mantener, fácil de editar y cómodo para colaborar entre varias personas.
+Bitácora Tech reúne publicaciones de varias personas con intereses distintos dentro del mundo tech: desarrollo web, IA, ciberseguridad, hardware, gaming y más. El proyecto está pensado para ser fácil de mantener, claro de editar y cómodo para trabajar en equipo.
+
+## 🧭 Índice rápido
+
+- [Objetivo del proyecto](#-objetivo-del-proyecto)
+- [Requisitos e inicio rápido](#️-requisitos)
+- [Configuración del sitio](#️-configuración-del-sitio)
+- [Flujo de trabajo colaborativo](#-flujo-de-trabajo-colaborativo)
+- [GitHub Pages y despliegue](#-github-pages-y-despliegue)
+- [Workflow de GitHub Actions](#-workflow-de-github-actions)
+- [Buenas prácticas](#-buenas-prácticas-para-mantener-el-proyecto)
 
 ## 🎯 Objetivo del proyecto
 
@@ -16,70 +26,83 @@ El objetivo es crear un espacio simple, mantenible y fácil de publicar para com
 - 🔎 Metadatos SEO con `jekyll-seo-tag`.
 - 📚 Paginación de entradas con `jekyll-paginate`.
 - 👤 Configuración de autores desde `_config.yml`.
-- 🚀 Un flujo listo para probar localmente y publicar en GitHub Pages.
-- 🐳 Una experiencia de desarrollo reproducible con Docker.
+- 🐳 Un entorno reproducible con Docker y Docker Compose.
+- 🚀 Un flujo de despliegue automático a GitHub Pages mediante GitHub Actions.
+- ✅ Validaciones automáticas de contenido, dependencias y compilación.
 
 ## 📁 Estructura del repositorio
 
 ```text
 Survsite/
-├── _config.yml              # Configuración global del sitio
-├── README.md                # Esta documentación
-├── Dockerfile               # Imagen para ejecutar Jekyll en local
-├── docker-compose.yml       # Arranque del sitio con Docker
-├── Makefile                 # Comandos rápidos de uso local
-├── blog-tech/               # Contenido del blog (páginas, posts, Gemfile)
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml
+├── _config.yml
+├── README.md
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
+├── blog-tech/
 │   ├── Gemfile
+│   ├── Gemfile.lock
+│   ├── _config.yml
+│   ├── _includes/
+│   ├── _layouts/
+│   ├── _posts/
 │   ├── about.md
 │   ├── index.md
-│   └── _posts/
+│   └── assets/
+└── .cspell.json
 ```
 
-### 📌 Archivos clave
+### Archivos clave
 
-- `_config.yml`: configuración principal del sitio, autores, tema, plugins, paginación y rutas.
-- `blog-tech/index.md`: página de inicio del blog.
+- `_config.yml`: configuración global del sitio y del blog.
+- `blog-tech/_config.yml`: configuración específica del contenido del blog.
+- `blog-tech/index.md`: página de inicio.
 - `blog-tech/about.md`: página de presentación del proyecto y del equipo.
-- `blog-tech/Gemfile`: dependencias Ruby/Jekyll necesarias para ejecutar el sitio en local.
-- `blog-tech/_posts/`: carpeta donde viven los artículos del blog.
+- `blog-tech/Gemfile`: dependencias Ruby y Jekyll.
+- `blog-tech/_posts/`: carpeta donde viven los artículos.
+- `.github/workflows/deploy-pages.yml`: workflow de validación y despliegue.
 
 ## 🛠️ Requisitos
 
 Para trabajar con este proyecto necesitas:
 
 - Git
-- Docker y Docker Compose (recomendado para reproducir el entorno sin instalar Ruby globalmente)
-- O bien Ruby + Bundler si prefieres ejecutar Jekyll directamente
+- Docker y Docker Compose (recomendado)
+- O bien Ruby + Bundler si prefieres trabajar sin contenedor
 
-> En este entorno ya se dejó preparado un flujo con Docker para que el sitio quede accesible en local sin depender de una instalación manual de Ruby.
+### Versión recomendada
 
-## ▶️ Cómo reproducir el proyecto en local
+- Ruby 3.2
+- Bundler 2.x
+- Node.js 22 para las tareas de validación ortográfica
+
+## ▶️ Inicio rápido
 
 ### Opción A: con Docker (recomendada)
 
-Esta es la forma más sencilla y reproducible.
-
-1. Abre una terminal en la raíz del repositorio.
-2. Ejecuta:
+La forma más sencilla y reproducible para levantar el sitio localmente es esta:
 
 ```bash
 cd /ruta/al/proyecto/Survsite
-docker compose up -d
+docker compose up --build
 ```
 
-3. Abre el navegador en:
+Después abre el navegador en:
 
 ```text
 http://127.0.0.1:4000
 ```
 
-4. Para detenerlo:
+Para detenerlo:
 
 ```bash
 docker compose down
 ```
 
-5. Para ver los logs si algo falla:
+Para ver los logs:
 
 ```bash
 docker compose logs -f
@@ -95,110 +118,30 @@ bundle install
 bundle exec jekyll serve
 ```
 
-Y luego visita:
+Y visita:
 
 ```text
 http://localhost:4000
 ```
 
-### 🔍 Qué hacen los comandos
+### Comandos útiles
 
-- `bundle install`: instala las dependencias definidas en el `Gemfile`.
-- `bundle exec jekyll serve`: levanta un servidor local y recompila el sitio cuando detecta cambios.
-- `docker compose up -d`: construye y levanta el entorno de Jekyll en un contenedor.
-
-## 🌐 Cómo funciona GitHub Pages
-
-GitHub Pages es el servicio de alojamiento estático de GitHub. Permite publicar sitios web sin necesidad de montar un servidor tradicional.
-
-### ¿Cómo se usa aquí?
-
-- El contenido del blog está escrito en Markdown y Jekyll lo transforma en páginas HTML estáticas.
-- GitHub Pages publica ese contenido directamente desde el repositorio.
-- En este proyecto, la publicación de producción se gestiona desde la rama `main`.
-
-### Conceptos importantes
-
-- `main`: es la única fuente de verdad para producción.
-- `develop`: rama de prueba y validación previa al despliegue.
-- `feature/*`: ramas de trabajo para cambios concretos.
-- `root` o `docs/`: la carpeta desde la que se publicará el contenido.
-- Build automático: si el repositorio está configurado para Jekyll, GitHub lo compila automáticamente.
-
-### Flujo de publicación
-
-1. Se trabaja en ramas `feature/*` creadas desde `develop`.
-2. Cuando un cambio está listo, se abre un Pull Request hacia `develop`.
-3. En `develop` se valida el contenido, se revisa el blog localmente y se comprueba que todo está en orden.
-4. Cuando la preparación es correcta, se abre un Pull Request desde `develop` hacia `main`.
-5. Solo al mergear ese Pull Request hacia `main` se activa el workflow de despliegue.
-6. GitHub Pages compila el sitio y lo publica en la URL pública.
-
-> Importante: los merges a `develop` no disparan el despliegue. El workflow solo reacciona cuando el PR de `develop` a `main` se fusiona.
-
-### Configuración recomendada para este proyecto
-
-En GitHub, en la sección Settings → Pages, normalmente se configura:
-
-- Source: Deploy from a branch
-- Branch: `main`
-- Folder: `/root` o `/docs` según cómo se haya preparado el proyecto
-
-> Para un proyecto como este, la URL suele ser de la forma:
->
-> `https://<usuario>.github.io/<nombre-del-repositorio>/`
-
-Si el repositorio es un sitio de usuario o organización, la URL puede ser simplemente:
-
-`https://<usuario>.github.io/`
-
-## � Despliegue con GitHub Actions
-
-Este proyecto incluye un workflow de GitHub Actions para construir y publicar el sitio de Jekyll automáticamente en GitHub Pages.
-
-### Archivo incluido
-
-- [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml): construye el sitio con Jekyll y lo despliega a GitHub Pages.
-
-### Qué hace el workflow
-
-1. Se activa al hacer push a `main` tras el merge del Pull Request desde `develop`.
-2. Ejecuta una validación previa que incluye:
-   - revisión ortográfica con `cspell` sobre los posts,
-   - comprobación de dependencias con Bundler,
-   - ejecución de `jekyll doctor`,
-   - y una compilación completa del sitio con `jekyll build --trace`.
-3. Si la validación pasa, genera la carpeta [blog-tech/_site](blog-tech/_site).
-4. Publica ese resultado en GitHub Pages con `actions/deploy-pages`.
-
-### Configuración en GitHub
-
-Para que funcione correctamente:
-
-1. Ve a Settings → Pages.
-2. Selecciona la opción `GitHub Actions` como fuente de despliegue.
-3. Asegúrate de que el workflow haya terminado correctamente en la pestaña Actions.
-4. Espera unos minutos y recarga la URL pública.
-
-## 🔄 Flujo de trabajo colaborativo
-
-Para trabajar de forma colaborativa en este proyecto se seguirá este flujo:
-
-1. Cada cambio se desarrolla en una rama `feature/*` creada desde `develop`.
-2. Cuando el cambio está listo, se abre un Pull Request hacia `develop`.
-3. En `develop` se prueban y revisan los cambios antes de preparar la publicación.
-4. Cuando todo está listo, se abre un Pull Request desde `develop` hacia `main`.
-5. Solo al hacer merge del PR a `main` y quedar reflejado en la rama `main` se despliega el sitio en producción.
-
-Este modelo busca mantener un flujo claro, ordenado y seguro para el desarrollo, la validación y la publicación del blog.
+- `bundle install`: instala las dependencias del proyecto.
+- `bundle exec jekyll serve`: levanta el sitio en modo desarrollo.
+- `bundle exec jekyll build`: genera una compilación estática en `_site`.
+- `docker compose up --build`: levanta el entorno completo con Docker.
+- `make`: ejecuta la tarea de arranque definida en el Makefile.
 
 ## ⚙️ Configuración del sitio
 
-El archivo `_config.yml` centraliza la mayor parte de la configuración global del blog.
+El archivo `_config.yml` centraliza la mayoría de los valores globales. El contenido del blog vive bajo `blog-tech/` y usa su propia configuración en `blog-tech/_config.yml`.
 
-### 👤 Autores
+### Autores
 
-Los autores se definen dentro de `authors:`. Cada autor tiene una clave única y metadatos básicos como nombre y biografía.
+Los autores se definen en la sección `authors:`. Cada entrada debe incluir al menos:
+
+- `name`
+- `bio`
 
 Ejemplo:
 
@@ -209,7 +152,7 @@ authors:
     bio: "Ingeniero de sistemas"
 ```
 
-### 🎨 Tema y plugins
+### Tema y plugins
 
 El blog usa:
 
@@ -218,28 +161,19 @@ El blog usa:
 - `jekyll-seo-tag`
 - `jekyll-paginate`
 
-### 🧭 Navegación
+## ✍️ Cómo crear contenido
 
-La navegación principal se define en `header_pages:`. Actualmente apunta a `about.md`.
+### Crear una nueva entrada
 
-### 📄 Paginación
-
-La página de inicio muestra entradas paginadas con:
-
-- `paginate: 6`
-- `paginate_path: "/page:num/"`
-
-## ✍️ Cómo crear una nueva entrada
-
-Cada post debe guardarse en la carpeta `blog-tech/_posts/` con un nombre que siga este formato:
+Cada post debe guardarse dentro de `blog-tech/_posts/` con este formato:
 
 ```text
 AAAA-MM-DD-titulo-del-post.md
 ```
 
-### 🧩 Front matter mínimo
+### Front matter mínimo
 
-Cada entrada debe comenzar con un bloque YAML como este:
+Cada entrada debe empezar con un bloque YAML como este:
 
 ```yaml
 ---
@@ -252,14 +186,14 @@ tags: [jekyll, github-pages]
 ---
 ```
 
-### 📏 Reglas recomendadas para los posts
+### Reglas recomendadas
 
 - El valor de `author` debe coincidir con una clave existente en `_config.yml`.
 - Usa `categories` para agrupar temas generales.
 - Usa `tags` para etiquetas más específicas.
-- Escribe el contenido en Markdown debajo del front matter.
+- Mantén el contenido en Markdown y revisa enlaces internos antes de publicar.
 
-### 📝 Ejemplo de post
+### Ejemplo de post
 
 ```markdown
 ---
@@ -274,39 +208,26 @@ tags: [jekyll, blog, github-pages]
 En este artículo explicamos cómo publicar un blog técnico con Jekyll.
 ```
 
-## 👤 Cómo agregar un nuevo autor
+## 🔄 Flujo de trabajo colaborativo
 
-1. Abre `_config.yml`.
-2. Agrega una nueva entrada dentro de `authors:`.
-3. Usa una clave corta y estable, por ejemplo `ana`, `pedro` o `sofia`.
-4. Completa `name` y `bio`.
-5. Si quieres mostrarlo en la página de presentación, actualiza también `blog-tech/about.md`.
+Este proyecto usa un flujo claro y seguro basado en ramas y Pull Requests.
 
-## 🤝 Cómo trabajaremos colaborativamente
+### Ramas del proyecto
 
-Para mantener el proyecto ordenado y fácil de revisar, usaremos un flujo basado en una sola fuente de verdad y ramas de trabajo temporales.
+- `main`: rama de producción. Es la fuente de verdad para el sitio publicado.
+- `develop`: rama de integración y validación previa.
+- `feature/*`: ramas temporales para trabajar cambios concretos.
 
-### 🧭 Idea central
+### Proceso recomendado
 
-- La rama `main` es la única fuente de verdad para producción.
-- La rama `develop` sirve para probar el blog en local y validar el contenido antes de ir a producción.
-- Las ramas `feature/*` se crean desde `develop` para trabajar cambios concretos.
-- Los cambios se revisan mediante Pull Requests y solo se integran cuando están listos.
+1. Crear una rama `feature/*` desde `develop`.
+2. Trabajar cambios pequeños y enfocados.
+3. Hacer commits claros y descriptivos.
+4. Abrir un Pull Request hacia `develop` para revisar y validar.
+5. Cuando todo esté listo, abrir un Pull Request desde `develop` hacia `main`.
+6. Al hacer merge a `main`, el workflow de despliegue se ejecuta y publica el sitio.
 
-### ✅ Reglas de trabajo
-
-1. Siempre partir desde `develop` para crear una rama `feature/*`.
-2. Crear ramas cortas y descriptivas, por ejemplo:
-   - `feature/nuevo-post`
-   - `feature/ajuste-nav`
-   - `feature/mejora-readme`
-3. Hacer cambios pequeños y enfocados.
-4. Subir la rama con frecuencia.
-5. Abrir un Pull Request hacia `develop` para revisar y probar.
-6. Cuando todo esté validado, abrir un Pull Request desde `develop` hacia `main`.
-7. No mezclar cambios incompletos ni sin probar.
-
-### 💻 Flujo recomendado
+### Ejemplo de flujo local
 
 ```bash
 git checkout develop
@@ -320,82 +241,223 @@ git commit -m "feat: describe el cambio"
 git push -u origin feature/nombre-del-cambio
 ```
 
-Luego abrir un Pull Request hacia `develop`. Cuando el cambio esté listo para producción, abrir otro Pull Request desde `develop` hacia `main`.
+Luego, abre un PR hacia `develop`. Cuando esté listo para producción, abre otro PR desde `develop` hacia `main`.
 
-### 📝 Buenas prácticas
+## 🧭 Guía rápida para contribuir
 
-- Usa mensajes de commit claros y cortos.
-- Mantén los PR pequeños y con contexto.
-- Evita trabajar directamente sobre `main` o `develop`.
-- Prueba el sitio localmente antes de pedir merge a `develop`.
-- Si algo no está listo, no lo mezcles.
-- Recuerda que el despliegue en producción solo ocurre cuando el merge llega a `main`.
+Si vas a participar en el proyecto, sigue este flujo para que los cambios lleguen de forma ordenada:
 
-## 🎨 Personalización visual
+1. Crear una rama `feature/*` desde `develop`.
+2. Trabajar cambios pequeños y bien delimitados.
+3. Probar el sitio localmente antes de abrir el PR.
+4. Abrir un Pull Request hacia `develop`.
+5. Esperar revisión y resolver comentarios si los hay.
+6. Cuando todo esté listo, abrir otro PR desde `develop` hacia `main`.
 
-El sitio usa el tema `minima`, así que la personalización puede hacerse de varias formas:
+### Checklist antes de pedir revisión
 
-- Sobrescribiendo estilos con archivos propios.
-- Creando parciales o ajustes de tema si el proyecto crece.
-- Cambiando contenido, orden de páginas o metadatos desde `_config.yml`.
+- [ ] El sitio compila correctamente en local.
+- [ ] Los cambios no han roto enlaces ni rutas.
+- [ ] El contenido está bien redactado y sin errores obvios.
+- [ ] El PR tiene título y descripción claros.
+- [ ] Si se cambiaron posts, se han revisado los front matter y la ortografía.
 
-Si el blog necesita una identidad visual más marcada, se puede migrar a un tema más completo o extender la apariencia actual con CSS personalizado.
+### Diagrama del flujo de publicación
 
-## 🧱 Contenido incluido hoy
+```mermaid
+flowchart LR
+    A[Crear rama feature/*] --> B[PR hacia develop]
+    B --> C[Merge a develop]
+    C --> D[PR hacia main]
+    D --> E[Merge a main]
+    E --> F[Push a main]
+    F --> G[Workflow validate/build/deploy]
+```
 
-### 🏠 Página de inicio
+### Plantilla recomendada para un PR
 
-La página principal da la bienvenida y presenta el enfoque del blog como un espacio colectivo de tecnología. Ahora incluye un tono más editorial y una estructura visual más cuidada.
+```text
+## Qué cambia
+- Describe brevemente los cambios introducidos.
 
-### ℹ️ Página Acerca de
+## Por qué
+- Explica el problema o la mejora que resuelve.
 
-La página `about.md` resume la historia del proyecto y presenta a los autores con una descripción breve de sus áreas.
+## Cómo se ha validado
+- Indica si has probado el sitio localmente.
+- Menciona comandos ejecutados o resultados obtenidos.
+```
 
-### 📰 Posts de ejemplo
+## 📝 Publicar un nuevo post paso a paso
 
-El blog ya incluye tres artículos listos para ver:
+Si quieres añadir una entrada nueva al blog, sigue este proceso:
 
-- [blog-tech/_posts/2026-08-01-bienvenida-bitacora-tech.md](blog-tech/_posts/2026-08-01-bienvenida-bitacora-tech.md)
-- [blog-tech/_posts/2026-08-02-que-es-jekyll-y-por-que-usarlo.md](blog-tech/_posts/2026-08-02-que-es-jekyll-y-por-que-usarlo.md)
-- [blog-tech/_posts/2026-08-03-herramientas-para-publicar-con-github-pages.md](blog-tech/_posts/2026-08-03-herramientas-para-publicar-con-github-pages.md)
+1. Crear una rama `feature/*` desde `develop`.
+2. Crear un archivo nuevo en `blog-tech/_posts/` con el nombre `AAAA-MM-DD-titulo-del-post.md`.
+3. Añadir el front matter mínimo con `layout`, `title`, `date`, `author`, `categories` y `tags`.
+4. Escribir el contenido en Markdown.
+5. Comprobar que el autor existe en `_config.yml`.
+6. Probar el sitio localmente con `bundle exec jekyll build` o `docker compose up --build`.
+7. Abrir un PR hacia `develop` y, si todo está bien, seguir el flujo hasta `main`.
 
-## 🔧 Mantenimiento recomendado
+### Ejemplo de publicación
 
-Para que el proyecto se mantenga ordenado a medida que crece, conviene seguir estas prácticas:
+```bash
+cd /ruta/al/proyecto/Survsite
+git checkout develop
+git pull origin develop
+git checkout -b feature/nuevo-post
+cp blog-tech/_posts/2026-08-01-bienvenida-bitacora-tech.md blog-tech/_posts/2026-08-02-mi-nuevo-post.md
+```
 
-- Mantener coherencia en el nombre de los archivos de post.
-- Revisar que cada nuevo autor exista en `_config.yml` antes de usarlo en un post.
-- Probar el sitio en local antes de publicar.
-- Verificar `url` y `baseurl` antes de desplegar.
-- Revisar enlaces internos después de cambios en páginas o rutas.
+Luego editas el archivo nuevo con el contenido deseado y sigues el flujo habitual.
 
-## 🧪 Solución de problemas frecuentes
+### Plantilla de front matter recomendada
+
+```yaml
+---
+layout: post
+title: "Título del post"
+date: 2026-08-01 12:00:00 +0000
+author: nombre-del-autor
+categories: [general]
+tags: [jekyll, github-pages]
+---
+```
+
+### Checklist antes de publicar
+
+- [ ] el archivo está en `blog-tech/_posts/` con el formato correcto;
+- [ ] el front matter está bien cerrado y sin errores de sintaxis;
+- [ ] el author existe en `_config.yml`;
+- [ ] el contenido se ve bien en local;
+- [ ] no hay errores visibles en la construcción del sitio;
+- [ ] el PR describe claramente qué se publica y por qué.
+
+## 🌐 GitHub Pages y despliegue
+
+GitHub Pages sirve el sitio como contenido estático. En este proyecto, el contenido se compila con Jekyll y se publica automáticamente desde GitHub Actions.
+
+### Configuración recomendada en GitHub
+
+En la sección Settings → Pages del repositorio:
+
+- selecciona la opción `GitHub Actions` como fuente de despliegue;
+- asegúrate de que la rama `main` sea la base del despliegue;
+- comprueba que el workflow haya terminado correctamente antes de esperar cambios visibles.
+
+### URL típica
+
+Para un repositorio público, la URL suele tener este patrón:
+
+```text
+https://<usuario>.github.io/<nombre-del-repositorio>/
+```
+
+Si el repositorio pertenece a una organización o cuenta de usuario, la URL puede ser la raíz del dominio de GitHub Pages.
+
+## 🚀 Workflow de GitHub Actions
+
+El archivo [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) define el pipeline de despliegue.
+
+### Qué hace el workflow
+
+El workflow se activa cuando hay un push a `main`, es decir, cuando el cambio ya quedó reflejado en la rama principal tras el merge del PR desde `develop`.
+
+### Jobs del workflow
+
+1. `validate`
+   - comprueba que el workflow se haya ejecutado sobre `main`;
+   - instala Node.js 22;
+   - ejecuta `cspell` sobre los posts en español;
+   - instala las dependencias de Ruby/Bundler;
+   - ejecuta `bundle exec jekyll doctor`;
+   - compila el sitio con `bundle exec jekyll build --trace`.
+
+2. `build`
+   - depende de `validate`;
+   - vuelve a compilar el sitio con Jekyll;
+   - prepara el artefacto estático para publicar en Pages.
+
+3. `deploy`
+   - depende de `build`;
+   - publica el contenido generado en GitHub Pages mediante `actions/deploy-pages`.
+
+### Permisos del workflow
+
+El workflow usa estos permisos:
+
+- `contents: read`
+- `pages: write`
+- `id-token: write`
+
+Estos permisos son necesarios para que GitHub Actions pueda construir y publicar el sitio en Pages.
+
+### Concurrencia
+
+El workflow usa `concurrency` para evitar ejecuciones simultáneas innecesarias:
+
+- `group: pages`
+- `cancel-in-progress: true`
+
+Esto evita que dos despliegues compitan entre sí.
+
+## 🧪 Validación local recomendada antes de abrir un PR
+
+Antes de pedir revisión, conviene comprobar al menos estas cosas:
+
+```bash
+cd blog-tech
+bundle exec jekyll build
+```
+
+Y si quieres una verificación rápida del contenido:
+
+```bash
+npx cspell --config ../.cspell.json --no-progress --words-only --locale es "_posts/**/*.md"
+```
+
+## 🧰 Solución de problemas frecuentes
 
 ### El sitio no se abre en `http://localhost:4000`
 
-- Verifica que Jekyll siga corriendo.
-- Comprueba que no haya otro proceso usando el puerto 4000.
-- Revisa los logs con `docker compose logs -f` si usas Docker.
+- verifica que Jekyll siga corriendo;
+- comprueba que no haya otro proceso usando el puerto 4000;
+- revisa los logs con `docker compose logs -f` si usas Docker;
+- prueba a reconstruir el contenedor con `docker compose up --build`.
 
 ### Un post no aparece
 
-- Asegúrate de que el archivo esté dentro de `blog-tech/_posts/`.
-- Revisa que el nombre del archivo siga el formato `AAAA-MM-DD-titulo.md`.
-- Comprueba que el front matter esté bien cerrado y que no falten comillas.
+- asegúrate de que el archivo esté dentro de `blog-tech/_posts/`;
+- revisa que el nombre del archivo siga el formato `AAAA-MM-DD-titulo.md`;
+- comprueba que el front matter esté bien cerrado y que no falten comillas;
+- verifica que el valor de `author` exista en `_config.yml`.
 
-### El diseño se ve distinto al esperado
+### El despliegue no funciona
 
-- Revisa que `_config.yml` contenga los valores correctos.
-- Comprueba que no haya errores de sintaxis en el YAML.
-- Prueba regenerar el sitio con `bundle exec jekyll build` o `docker compose up --build`.
+- revisa la pestaña Actions del repositorio;
+- comprueba que el workflow haya pasado en `main`;
+- confirma que en GitHub Pages la fuente sea `GitHub Actions`;
+- verifica que el workflow tenga permisos adecuados para Pages;
+- revisa si el merge se hizo realmente sobre `main` y si el push asociado llegó correctamente.
 
-## 📜 Licencia
+### El workflow falla en `cspell`
 
-Si el proyecto va a publicarse de forma abierta, conviene agregar una licencia explícita en el repositorio para dejar claro cómo se puede reutilizar el contenido y el código.
+- comprueba que los archivos de post estén en la ruta esperada;
+- revisa si hay palabras no reconocidas y, si procede, añádelas a `.cspell.json`;
+- vuelve a ejecutar el comando localmente para ver el detalle exacto.
+
+## 🧭 Buenas prácticas para mantener el proyecto
+
+- mantener mensajes de commit claros;
+- abrir PR pequeños y bien descritos;
+- probar el sitio antes de fusionar a `develop`;
+- no trabajar directamente sobre `main`;
+- revisar ortografía y enlaces antes de publicar.
 
 ## 🚀 Próximos pasos sugeridos
 
-- Añadir más artículos y autores.
-- Mejorar la identidad visual con estilos propios.
-- Configurar un dominio personalizado en GitHub Pages.
-- Preparar una rama de despliegue y un flujo de revisión más formal si el proyecto crece.
+- añadir más artículos y autores;
+- mejorar la identidad visual con estilos propios;
+- configurar un dominio personalizado en GitHub Pages;
+- ampliar la validación con enlaces rotos o previews automáticas.
