@@ -7,13 +7,13 @@ future: true
 # Autores del blog (edita con los datos de tus amigos)
 authors:
   juanjo:
-    name: "Juanjo Morales"
+    name: "Juan José Morales Muñoz"
     bio: "Ingeniero de sistemas"
   mauro:
-    name: "Mauro Fernández"
-    bio: "Arquitecto Devops"
+    name: "Mauro Fernández Quiñones"
+    bio: "Ingeniero DevOps"
   mario:
-    name: "Mario Parra"
+    name: "Mario Parra Alonso"
     bio: "Ciberseguridad"
 
 # Tema y plugins

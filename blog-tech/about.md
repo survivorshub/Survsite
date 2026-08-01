@@ -17,20 +17,16 @@ permalink: /about/
 
 <div class="author-grid">
   <div class="author-card">
-    <h3>Ana Torres</h3>
-    <p><strong>Frontend & UX</strong><br>Desarrolladora frontend apasionada por JavaScript, frameworks modernos y experiencia de usuario.</p>
+    <h3>Mario Parra Alonso</h3>
+    <p><strong>Ciberseguridad</strong><br>Especialista en ciberseguridad y buenas prácticas de protección.</p>
   </div>
   <div class="author-card">
-    <h3>Luis Fernández</h3>
-    <p><strong>Ciberseguridad</strong><br>Ingeniero de seguridad especializado en redes, pentesting y buenas prácticas de protección.</p>
+    <h3>Juan José Morales Muñoz</h3>
+    <p><strong>Ingeniero de sistemas</strong><br>Profesional enfocado en sistemas, arquitectura y soluciones tecnológicas.</p>
   </div>
   <div class="author-card">
-    <h3>Marta Gil</h3>
-    <p><strong>Inteligencia Artificial</strong><br>Data scientist enfocada en machine learning, análisis de datos y tendencias en IA.</p>
-  </div>
-  <div class="author-card">
-    <h3>Carlos Ruiz</h3>
-    <p><strong>Hardware & Gaming</strong><br>Entusiasta del hardware, benchmarks, PCs gamer y novedades en consolas.</p>
+    <h3>Mauro Fernández Quiñones</h3>
+    <p><strong>Ingeniero DevOps</strong><br>Especialista en automatización, infraestructura y despliegues fiables.</p>
   </div>
 </div>
 
