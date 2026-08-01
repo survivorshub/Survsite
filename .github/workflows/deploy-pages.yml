@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: read
 
 concurrency:
   group: pages
@@ -22,7 +23,26 @@ env:
   JEKYLL_ENV: production
 
 jobs:
+  verify-pr-context:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify push to main came from a merged PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Commit SHA: ${{ github.sha }}"
+          PULLS=$(gh api repos/${{ github.repository }}/commits/${{ github.sha }}/pulls --jq '.[].number')
+          echo "PRs asociados: ${PULLS:-ninguno}"
+          if [ -n "$PULLS" ]; then
+            echo "✅ El push a main proviene de un merge vía PR."
+          else
+            echo "❌ Los pushes directos a main no están permitidos. Crea una rama y fusiona mediante PR."
+            exit 1
+          fi
+
   validate:
+    needs: verify-pr-context
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
