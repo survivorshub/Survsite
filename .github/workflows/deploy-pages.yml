@@ -43,8 +43,6 @@ jobs:
       - name: Show tool versions
         run: |
           node --version
-          ruby --version
-          bundle --version
 
       - name: Install cspell
         run: npm install -g cspell@latest
@@ -58,6 +56,11 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
           working-directory: blog-tech
+
+      - name: Show tool versions
+        run: |
+          ruby --version
+          bundle --version
 
       - name: Install Jekyll dependencies
         working-directory: blog-tech
