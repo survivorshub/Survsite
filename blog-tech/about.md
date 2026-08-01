@@ -18,7 +18,7 @@ permalink: /about/
 <div class="author-grid">
   <div class="author-card">
     <h3>Mario Parra Alonso</h3>
-    <p><strong>Ciberseguridad</strong><br>Especialista en ciberseguridad y buenas prácticas de protección.</p>
+    <p><strong>Ingeniero de seguridad</strong><br>Especialista en ciberseguridad y buenas prácticas de protección.</p>
   </div>
   <div class="author-card">
     <h3>Juan José Morales Muñoz</h3>
