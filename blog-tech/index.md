@@ -9,7 +9,7 @@ title: "Inicio"
   <p>Somos un grupo de personas compartiendo lo que aprendemos sobre desarrollo, IA, ciberseguridad, hardware, gaming y nuevas herramientas. Cada entrada está pensada para ser clara, práctica y cercana.</p>
   <div class="hero-actions">
     <a class="button primary" href="#posts">Leer artículos</a>
-    <a class="button secondary" href="/about/">Conocer el proyecto</a>
+    <a class="button secondary" href="{{ '/about/' | relative_url }}">Conocer el proyecto</a>
   </div>
 </div>
 
