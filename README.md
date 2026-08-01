@@ -7,11 +7,14 @@ Bitácora Tech reúne publicaciones de varias personas con intereses distintos d
 ## 🧭 Índice rápido
 
 - [Objetivo del proyecto](#-objetivo-del-proyecto)
+- [Resumen del estado actual](#-resumen-del-estado-actual)
 - [Requisitos e inicio rápido](#️-requisitos)
 - [Configuración del sitio](#️-configuración-del-sitio)
-- [Flujo de trabajo colaborativo](#-flujo-de-trabajo-colaborativo)
+- [Flujo real de trabajo](#-flujo-real-de-trabajo)
+- [Publicar un nuevo post](#-publicar-un-nuevo-post-paso-a-paso)
 - [GitHub Pages y despliegue](#-github-pages-y-despliegue)
 - [Workflow de GitHub Actions](#-workflow-de-github-actions)
+- [Lecciones aprendidas](#-lecciones-aprendidas)
 - [Buenas prácticas](#-buenas-prácticas-para-mantener-el-proyecto)
 
 ## 🎯 Objetivo del proyecto
@@ -29,7 +32,8 @@ El objetivo es crear un espacio simple, mantenible y fácil de publicar para com
 - 🐳 Un entorno reproducible con Docker y Docker Compose.
 - 🚀 Un flujo de despliegue automático a GitHub Pages mediante GitHub Actions.
 - ✅ Validaciones automáticas de contenido, dependencias y compilación.
-- 🔁 El despliegue se ejecuta tras un PR fusionado en main para evitar publicaciones accidentales.
+- � Protección de rama para evitar pushes directos a `main`.
+- 🔁 El despliegue solo ocurre cuando el cambio llega a `main` por PR y el workflow confirma que el commit está asociado a un PR.
 
 ## 📁 Estructura del repositorio
 
@@ -65,6 +69,7 @@ Survsite/
 - `blog-tech/Gemfile`: dependencias Ruby y Jekyll.
 - `blog-tech/_posts/`: carpeta donde viven los artículos.
 - `.github/workflows/deploy-pages.yml`: workflow de validación y despliegue.
+- `.github/workflows/require-pr-for-main.yml`: guardado adicional para reforzar la política de ramas.
 
 ## 🛠️ Requisitos
 
@@ -209,30 +214,49 @@ tags: [jekyll, blog, github-pages]
 En este artículo explicamos cómo publicar un blog técnico con Jekyll.
 ```
 
-## 🔄 Flujo de trabajo colaborativo
+## 🌟 Resumen del estado actual
 
-Este proyecto usa un flujo claro y seguro basado en ramas y Pull Requests.
+Este repositorio ya está preparado para trabajar de forma segura y reproducible:
+
+- el sitio se publica desde `main`;
+- los cambios llegan por Pull Request;
+- la rama `main` está protegida para evitar pushes directos;
+- el workflow de despliegue comprueba que el commit de `main` esté asociado a un PR antes de seguir con la validación, el build y la publicación.
+
+## 🔄 Flujo real de trabajo
+
+Este proyecto usa un flujo claro, seguro y alineado con la configuración actual de GitHub.
 
 ### Ramas del proyecto
 
 - `main`: rama de producción. Es la fuente de verdad para el sitio publicado.
-- `develop`: rama de integración y validación previa.
 - `feature/*`: ramas temporales para trabajar cambios concretos.
 
 ### Proceso recomendado
 
-1. Crear una rama `feature/*` desde `develop`.
-2. Trabajar cambios pequeños y enfocados.
+1. Crear una rama `feature/*` desde `main`.
+2. Trabajar cambios pequeños y bien delimitados.
 3. Hacer commits claros y descriptivos.
-4. Abrir un Pull Request hacia `develop` para revisar y validar.
-5. Cuando todo esté listo, abrir un Pull Request desde `develop` hacia `main`.
-6. Al hacer merge a `main`, el workflow de despliegue se ejecuta y publica el sitio.
+4. Abrir un Pull Request hacia `main`.
+5. Esperar revisión, aprobación y que los checks del workflow pasen.
+6. Fusionar el PR en `main`.
+7. El workflow despliega automáticamente el sitio en GitHub Pages.
+
+### Protección de rama
+
+En GitHub conviene activar estas reglas sobre `main`:
+
+- Require a pull request before merging.
+- Require status checks to pass before merging.
+- Do not allow bypassing the above settings.
+
+Esto añade una capa adicional de seguridad frente a errores humanos o cambios directos sobre producción.
 
 ### Ejemplo de flujo local
 
 ```bash
-git checkout develop
-git pull origin develop
+git checkout main
+git pull origin main
 git checkout -b feature/nombre-del-cambio
 
 # trabajar en los cambios
@@ -242,7 +266,7 @@ git commit -m "feat: describe el cambio"
 git push -u origin feature/nombre-del-cambio
 ```
 
-Luego, abre un PR hacia `develop`. Cuando esté listo para producción, abre otro PR desde `develop` hacia `main`.
+Después, abre un PR hacia `main` y sigue el flujo estándar de revisión.
 
 ## 🧭 Guía rápida para contribuir
 
@@ -293,13 +317,13 @@ flowchart LR
 
 Si quieres añadir una entrada nueva al blog, sigue este proceso:
 
-1. Crear una rama `feature/*` desde `develop`.
+1. Crear una rama `feature/*` desde `main`.
 2. Crear un archivo nuevo en `blog-tech/_posts/` con el nombre `AAAA-MM-DD-titulo-del-post.md`.
 3. Añadir el front matter mínimo con `layout`, `title`, `date`, `author`, `categories` y `tags`.
 4. Escribir el contenido en Markdown.
 5. Comprobar que el autor existe en `_config.yml`.
 6. Probar el sitio localmente con `bundle exec jekyll build` o `docker compose up --build`.
-7. Abrir un PR hacia `develop` y, si todo está bien, seguir el flujo hasta `main`.
+7. Abrir un PR hacia `main` y, si todo está bien, fusionarlo para publicar.
 
 ### Ejemplo de publicación
 
@@ -337,15 +361,15 @@ tags: [jekyll, github-pages]
 
 ## 🌐 GitHub Pages y despliegue
 
-GitHub Pages sirve el sitio como contenido estático. En este proyecto, el contenido se compila con Jekyll y se publica automáticamente desde GitHub Actions.
+GitHub Pages sirve el sitio como contenido estático. En este proyecto, el contenido se compila con Jekyll y se publica automáticamente desde GitHub Actions cuando el cambio llega a `main` por Pull Request.
 
 ### Configuración recomendada en GitHub
 
 En la sección Settings → Pages del repositorio:
 
 - selecciona la opción `GitHub Actions` como fuente de despliegue;
-- asegúrate de que la rama `main` sea la base del despliegue;
-- comprueba que el workflow haya terminado correctamente antes de esperar cambios visibles.
+- mantén `main` como rama de publicación;
+- activa la protección de rama para que los cambios entren por PR y no por push directo.
 
 ### URL típica
 
@@ -355,33 +379,28 @@ Para un repositorio público, la URL suele tener este patrón:
 https://<usuario>.github.io/<nombre-del-repositorio>/
 ```
 
-Si el repositorio pertenece a una organización o cuenta de usuario, la URL puede ser la raíz del dominio de GitHub Pages.
-
 ## 🚀 Workflow de GitHub Actions
 
-El archivo [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) define el pipeline de despliegue.
+El pipeline de despliegue está definido en [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) y reforzado con [.github/workflows/require-pr-for-main.yml](.github/workflows/require-pr-for-main.yml).
 
-### Qué hace el workflow
+### Qué hace hoy el workflow
 
-El workflow se activa cuando hay un push a `main`, es decir, cuando el cambio ya quedó reflejado en la rama principal tras el merge del PR desde `develop`.
+1. `verify-pr-context`
+   - se ejecuta primero sobre `main`;
+   - comprueba con la API de GitHub si el commit está asociado a un PR;
+   - si no lo está, el workflow falla antes de continuar.
 
-### Jobs del workflow
-
-1. `validate`
-   - comprueba que el workflow se haya ejecutado sobre `main`;
+2. `validate`
    - instala Node.js 22;
    - ejecuta `cspell` sobre los posts en español;
    - instala las dependencias de Ruby/Bundler;
    - ejecuta `bundle exec jekyll doctor`;
    - compila el sitio con `bundle exec jekyll build --trace`.
 
-2. `build`
-   - depende de `validate`;
-   - vuelve a compilar el sitio con Jekyll;
-   - prepara el artefacto estático para publicar en Pages.
+3. `build`
+   - prepara el artefacto estático para publicación en Pages.
 
-3. `deploy`
-   - depende de `build`;
+4. `deploy`
    - publica el contenido generado en GitHub Pages mediante `actions/deploy-pages`.
 
 ### Permisos del workflow
@@ -391,8 +410,7 @@ El workflow usa estos permisos:
 - `contents: read`
 - `pages: write`
 - `id-token: write`
-
-Estos permisos son necesarios para que GitHub Actions pueda construir y publicar el sitio en Pages.
+- `pull-requests: read`
 
 ### Concurrencia
 
@@ -401,7 +419,14 @@ El workflow usa `concurrency` para evitar ejecuciones simultáneas innecesarias:
 - `group: pages`
 - `cancel-in-progress: true`
 
-Esto evita que dos despliegues compitan entre sí.
+## 🧠 Lecciones aprendidas
+
+Durante la configuración final del despliegue hemos aprendido varias cosas valiosas:
+
+- el trigger más fiable para este flujo es el push real a `main`;
+- es recomendable comprobar dentro del mismo workflow si el commit de `main` vino de un PR;
+- la protección de rama en GitHub añade una barrera adicional muy útil frente a errores humanos;
+- mantener los checks y la validación en el mismo run ayuda a detectar problemas antes de publicar.
 
 ## 🧪 Validación local recomendada antes de abrir un PR
 
