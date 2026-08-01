@@ -147,7 +147,36 @@ Si el repositorio es un sitio de usuario o organización, la URL puede ser simpl
 
 `https://<usuario>.github.io/`
 
-## 🔄 Flujo de trabajo colaborativo
+## � Despliegue con GitHub Actions
+
+Este proyecto incluye un workflow de GitHub Actions para construir y publicar el sitio de Jekyll automáticamente en GitHub Pages.
+
+### Archivo incluido
+
+- [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml): construye el sitio con Jekyll y lo despliega a GitHub Pages.
+
+### Qué hace el workflow
+
+1. Se activa al hacer push a la rama `develop` o manualmente desde la pestaña Actions.
+2. Configura Ruby 3.2.
+3. Instala las dependencias del proyecto desde [blog-tech/Gemfile](blog-tech/Gemfile).
+4. Genera la carpeta [blog-tech/_site](blog-tech/_site) con `bundle exec jekyll build`.
+5. Publica ese resultado en GitHub Pages con `actions/deploy-pages`.
+
+### Configuración en GitHub
+
+Para que funcione correctamente:
+
+1. Ve a Settings → Pages.
+2. Selecciona la opción `GitHub Actions` como fuente de despliegue.
+3. Asegúrate de que el workflow haya terminado correctamente en la pestaña Actions.
+4. Espera unos minutos y recarga la URL pública.
+
+### Recomendación
+
+Si quieres probar cambios en una rama de desarrollo, puedes dejar el workflow apuntando a `develop` y publicar desde ahí. Para producción, puedes cambiar el trigger a `main` cuando el sitio esté listo.
+
+## �🔄 Flujo de trabajo colaborativo
 
 Para trabajar de forma colaborativa en este proyecto se seguirá este flujo:
 

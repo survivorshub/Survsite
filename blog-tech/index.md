@@ -1,6 +1,5 @@
 ---
 layout: home
-title: "Inicio"
 ---
 
 <div class="hero-card">
@@ -28,7 +27,28 @@ title: "Inicio"
   </div>
 </div>
 
+<div class="section-card">
+  <h2>🧭 Temas destacados</h2>
+  <div class="topics-grid">
+    <span>Desarrollo web</span>
+    <span>Inteligencia artificial</span>
+    <span>DevOps</span>
+    <span>Seguridad</span>
+    <span>Hardware</span>
+    <span>Gaming</span>
+  </div>
+</div>
+
 <div class="section-card" id="posts">
   <h2>📰 Últimos posts</h2>
-  <p>Explora los artículos recientes y disfruta de una experiencia de lectura más cuidada, visual y organizada.</p>
+  <div class="post-grid">
+    {% assign recent_posts = site.posts | slice: 0, 3 %}
+    {% for post in recent_posts %}
+      <article class="post-card">
+        <p class="post-card-meta">{{ post.date | date: "%d %b %Y" }}</p>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p>{{ post.excerpt | strip_html | truncatewords: 24 }}</p>
+      </article>
+    {% endfor %}
+  </div>
 </div>
