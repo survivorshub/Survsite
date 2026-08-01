@@ -1,7 +1,7 @@
 title: "Bitácora Tech"
 description: "Un blog colectivo de amigos apasionados por la tecnología: desarrollo, IA, seguridad, gaming, hardware y más."
 baseurl: "/Survsite"
-url: "https://mauro.github.io"
+url: "https://survivorshub.github.io"
 source: "blog-tech"
 future: true
 
