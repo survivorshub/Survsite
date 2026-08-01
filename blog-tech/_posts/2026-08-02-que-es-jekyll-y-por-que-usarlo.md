@@ -7,11 +7,11 @@ categories: [desarrollo]
 tags: [jekyll, static-site, github-pages]
 ---
 
-Jekyll es un generador de sitios estáticos muy popular entre quienes quieren publicar contenido de forma sencilla y rápida.
+Jekyll es un generador de sitios estáticos muy popular entre quienes quieren publicar contenido de forma sencilla y rápida. Su enfoque simple y directo lo convierte en una excelente opción para blogs, documentación y proyectos pequeños que necesitan una solución ligera y mantenible.
 
 ![Arquitectura de Jekyll](https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80)
 
-Una de sus grandes ventajas es que convierte archivos en Markdown y YAML en una web estática lista para desplegar. Esto lo hace ideal para blogs, documentación y sitios pequeños con contenido que no necesita una base de datos compleja.
+Una de sus grandes ventajas es que convierte archivos en Markdown y YAML en una web estática lista para desplegar. Esto lo hace ideal para sitios que no necesitan una base de datos compleja y que quieren publicar con rapidez.
 
 ## ¿Por qué lo elegimos?
 

@@ -9,7 +9,7 @@ tags: [blog, github-pages, jekyll]
 
 Bienvenidos a Bitácora Tech, un espacio colectivo para compartir ideas, aprendizajes y experiencias sobre tecnología.
 
-Este proyecto nace con una idea sencilla: crear un blog vivo, abierto y fácil de mantener, donde varias personas puedan publicar desde sus áreas de interés.
+Este proyecto nace con una idea sencilla: crear un blog vivo, abierto y fácil de mantener, donde varias personas puedan publicar desde sus áreas de interés. La intención no es solo publicar contenido, sino construir un punto de encuentro para quien quiera aprender, reflexionar y mejorar sus habilidades técnicas.
 
 ![Portada del blog](https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80)
 
