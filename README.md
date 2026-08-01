@@ -33,7 +33,7 @@ El objetivo es crear un espacio simple, mantenible y fácil de publicar para com
 - 🐳 Un entorno reproducible con Docker y Docker Compose.
 - 🚀 Un flujo de despliegue automático a GitHub Pages mediante GitHub Actions.
 - ✅ Validaciones automáticas de contenido, dependencias y compilación.
-- � Protección de rama para evitar pushes directos a `main`.
+- 🛡️ Protección de rama para evitar pushes directos a `main`.
 - 🔁 El despliegue solo ocurre cuando el cambio llega a `main` por PR y el workflow confirma que el commit está asociado a un PR.
 
 ## 📁 Estructura del repositorio
@@ -56,8 +56,11 @@ Survsite/
 │   ├── _layouts/
 │   ├── _posts/
 │   ├── about.md
+│   ├── posts.md
 │   ├── index.md
 │   └── assets/
+│       └── images/
+├── prompts/
 └── .cspell.json
 ```
 
@@ -67,10 +70,12 @@ Survsite/
 - `blog-tech/_config.yml`: configuración específica del contenido del blog.
 - `blog-tech/index.md`: página de inicio.
 - `blog-tech/about.md`: página de presentación del proyecto y del equipo.
+- `blog-tech/posts.md`: página con la lista de publicaciones.
 - `blog-tech/Gemfile`: dependencias Ruby y Jekyll.
 - `blog-tech/_posts/`: carpeta donde viven los artículos.
 - `.github/workflows/deploy-pages.yml`: workflow de validación y despliegue.
 - `.github/workflows/require-pr-for-main.yml`: guardado adicional para reforzar la política de ramas.
+- `prompts/`: librería de prompts reutilizables para trabajar con el repositorio.
 
 ## 🛠️ Requisitos
 
@@ -155,8 +160,14 @@ Ejemplo:
 ```yaml
 authors:
   juanjo:
-    name: "Juanjo Morales"
+    name: "Juan José Morales Muñoz"
     bio: "Ingeniero de sistemas"
+  mauro:
+    name: "Mauro Fernández Quiñones"
+    bio: "Ingeniero DevOps"
+  mario:
+    name: "Mario Parra Alonso"
+    bio: "Ingeniero de seguridad"
 ```
 
 ### Tema y plugins
@@ -215,6 +226,18 @@ tags: [jekyll, blog, github-pages]
 En este artículo explicamos cómo publicar un blog técnico con Jekyll.
 ```
 
+## ✍️ Contenido actual del blog
+
+El blog ya incluye publicaciones sobre temas de desarrollo, DevOps, GitHub Pages y buenas prácticas. Entre los artículos actuales destacan:
+
+- Bienvenida a Bitácora Tech
+- Docker para DevOps
+- ¿Qué es Jekyll y por qué lo usamos?
+- Herramientas útiles para publicar con GitHub Pages
+- Automatización sencilla con Makefile
+- Por qué la documentación importa más de lo que parece
+- Ideas simples para mejorar un blog
+
 ## 🌟 Resumen del estado actual
 
 Este repositorio ya está preparado para trabajar de forma segura y reproducible:
@@ -222,7 +245,8 @@ Este repositorio ya está preparado para trabajar de forma segura y reproducible
 - el sitio se publica desde `main`;
 - los cambios llegan por Pull Request;
 - la rama `main` está protegida para evitar pushes directos;
-- el workflow de despliegue comprueba que el commit de `main` esté asociado a un PR antes de seguir con la validación, el build y la publicación.
+- el workflow de despliegue comprueba que el commit de `main` esté asociado a un PR antes de seguir con la validación, el build y la publicación;
+- el blog ya cuenta con páginas de inicio, acerca de y listado de posts, además de contenido nuevo y más cuidado.
 
 ## 🔄 Flujo real de trabajo
 
@@ -395,6 +419,7 @@ El pipeline de despliegue está definido en [.github/workflows/deploy-pages.yml]
 
 2. `validate`
    - instala Node.js 22;
+   - usa `actions/checkout@v5` y `actions/setup-node@v5` para evitar advertencias de Node 20;
    - ejecuta `cspell` sobre los posts en español;
    - instala las dependencias de Ruby/Bundler;
    - ejecuta `bundle exec jekyll doctor`;
