@@ -13,9 +13,10 @@ jobs:
 
       - name: Ensure main only accepts PR merge commits
         run: |
-          COMMIT_MSG="$(git log -1 --pretty=%B)"
-          echo "Último mensaje de commit: $COMMIT_MSG"
-          if echo "$COMMIT_MSG" | grep -Eiq '^(Merge pull request|Merge branch)|\(#([0-9]+)\)$'; then
+          echo "Commit SHA: ${{ github.sha }}"
+          PULLS=$(gh api repos/${{ github.repository }}/commits/${{ github.sha }}/pulls --jq '.[].number')
+          echo "PRs asociados: ${PULLS:-ninguno}"
+          if [ -n "$PULLS" ]; then
             echo "✅ El push a main proviene de un merge vía PR."
           else
             echo "❌ Los pushes directos a main no están permitidos. Crea una rama y fusiona mediante PR."
