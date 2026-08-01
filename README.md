@@ -63,7 +63,7 @@ Esta es la forma más sencilla y reproducible.
 2. Ejecuta:
 
 ```bash
-cd /home/mauro/code/mfq/Survsite
+cd /ruta/al/proyecto/Survsite
 docker compose up -d
 ```
 
@@ -146,6 +146,17 @@ En GitHub, en la sección Settings → Pages, normalmente se configura:
 Si el repositorio es un sitio de usuario o organización, la URL puede ser simplemente:
 
 `https://<usuario>.github.io/`
+
+## 🔄 Flujo de trabajo colaborativo
+
+Para trabajar de forma colaborativa en este proyecto se seguirá este flujo:
+
+1. Cada cambio se desarrollará en una rama nueva creada a partir de `develop`.
+2. Los avances se integrarán en `develop` mediante Pull Requests.
+3. Desde `develop` se subirán los cambios a `pro` también mediante Pull Requests.
+4. El trabajo en `pro` se mantendrá controlado y revisado, evitando modificaciones directas.
+
+Este modelo busca mantener un flujo claro, ordenado y seguro para el desarrollo y la publicación del sitio.
 
 ## ⚙️ Configuración del sitio
 
