@@ -479,9 +479,10 @@ npx cspell --config ../.cspell.json --no-progress --words-only --locale es "_pos
 
 - mantener mensajes de commit claros;
 - abrir PR pequeños y bien descritos;
-- probar el sitio antes de fusionar a `develop`;
+- probar el sitio antes de fusionar a `main`;
 - no trabajar directamente sobre `main`;
-- revisar ortografía y enlaces antes de publicar.
+- revisar ortografía y enlaces antes de publicar;
+- usar PRs para cualquier cambio que afecte al despliegue o la publicación.
 
 ## 🚀 Próximos pasos sugeridos
 
