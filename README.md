@@ -272,12 +272,12 @@ Después, abre un PR hacia `main` y sigue el flujo estándar de revisión.
 
 Si vas a participar en el proyecto, sigue este flujo para que los cambios lleguen de forma ordenada:
 
-1. Crear una rama `feature/*` desde `develop`.
+1. Crear una rama `feature/*` desde `main`.
 2. Trabajar cambios pequeños y bien delimitados.
 3. Probar el sitio localmente antes de abrir el PR.
-4. Abrir un Pull Request hacia `develop`.
+4. Abrir un Pull Request hacia `main`.
 5. Esperar revisión y resolver comentarios si los hay.
-6. Cuando todo esté listo, abrir otro PR desde `develop` hacia `main`.
+6. Cuando todo esté listo, hacer merge del PR en `main`.
 
 ### Checklist antes de pedir revisión
 
@@ -289,14 +289,16 @@ Si vas a participar en el proyecto, sigue este flujo para que los cambios llegue
 
 ### Diagrama del flujo de publicación
 
-```mermaid
-flowchart LR
-    A[Crear rama feature/*] --> B[PR hacia develop]
-    B --> C[Merge a develop]
-    C --> D[PR hacia main]
-    D --> E[Merge a main]
-    E --> F[Push a main]
-    F --> G[Workflow validate/build/deploy]
+```text
+Crear rama feature/*
+        ↓
+Abrir PR hacia main
+        ↓
+Revisión y aprobación
+        ↓
+Merge a main
+        ↓
+Workflow validate/build/deploy
 ```
 
 ### Plantilla recomendada para un PR
