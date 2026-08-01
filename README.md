@@ -131,8 +131,10 @@ GitHub Pages es el servicio de alojamiento estático de GitHub. Permite publicar
 2. Cuando un cambio está listo, se abre un Pull Request hacia `develop`.
 3. En `develop` se valida el contenido, se revisa el blog localmente y se comprueba que todo está en orden.
 4. Cuando la preparación es correcta, se abre un Pull Request desde `develop` hacia `main`.
-5. Solo al mergear a `main` se activa el workflow de despliegue.
+5. Solo al mergear ese Pull Request hacia `main` se activa el workflow de despliegue.
 6. GitHub Pages compila el sitio y lo publica en la URL pública.
+
+> Importante: los merges a `develop` no disparan el despliegue. El workflow solo reacciona cuando el PR de `develop` a `main` se fusiona.
 
 ### Configuración recomendada para este proyecto
 
@@ -160,7 +162,7 @@ Este proyecto incluye un workflow de GitHub Actions para construir y publicar el
 
 ### Qué hace el workflow
 
-1. Se activa al hacer push a `main` o al cerrar un Pull Request mergeado hacia `main`.
+1. Se activa al cerrar un Pull Request mergeado hacia `main` cuando la fuente es `develop`.
 2. Ejecuta una validación previa que incluye:
    - revisión ortográfica con `cspell` sobre los posts,
    - comprobación de dependencias con Bundler,
@@ -186,7 +188,7 @@ Para trabajar de forma colaborativa en este proyecto se seguirá este flujo:
 2. Cuando el cambio está listo, se abre un Pull Request hacia `develop`.
 3. En `develop` se prueban y revisan los cambios antes de preparar la publicación.
 4. Cuando todo está listo, se abre un Pull Request desde `develop` hacia `main`.
-5. Solo al mergear a `main` se despliega el sitio en producción.
+5. Solo al mergear ese PR a `main` se despliega el sitio en producción.
 
 Este modelo busca mantener un flujo claro, ordenado y seguro para el desarrollo, la validación y la publicación del blog.
 
